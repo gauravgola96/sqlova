@@ -41,6 +41,7 @@ import add_csv
 import add_question
 from flask import Flask, request
 from flask import jsonify
+from flask_cors import CORS
 import io
 import uuid
 import re
@@ -63,6 +64,7 @@ status = "Loading sqlova model, please wait"
 
 if not args.split:
     app = Flask(__name__)
+    CORS(app, support_credentials=True)
     @app.route('/api/open/v1/text/mlsql', methods=['POST'])
     def run():
         if handle_request:
@@ -246,3 +248,5 @@ annotate_ws.annotate('start up please')
 
 handle_request = handle_request0
 thread.join()
+
+# python3 ./predict.py --bert_type_abb uL  --model_file pretrained/model_best.pt --bert_model_file pretrained/model_bert_best.pt --bert_path support --data_path ./ --result_path ./
